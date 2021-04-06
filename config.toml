@@ -1,6 +1,3 @@
 baseURL = "https://forimicidae-tracker.github.io/"
 languageCode = "en-us"
 title = "FORmicidae Tracker"
-
-[params]
-homeText = "An open source online tracking system"
