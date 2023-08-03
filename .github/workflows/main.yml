@@ -1,4 +1,4 @@
-name: github pages
+name: Deploy to GitHub Pages
 
 on:
   push:
@@ -6,25 +6,41 @@ on:
       - master  # Set a branch to deploy
 
 jobs:
-  deploy:
-    runs-on: ubuntu-20.04
+  build_site:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
         with:
-          submodules: true  # Fetch Hugo themes (true OR recursive)
-          fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
+          node-version: 18
+          cache: npm
 
-      - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+      - name:  installs dependencies
+        run: npm install
+
+      - name: build
+        run: |
+          npm run build
+          touch build/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v1
         with:
-          hugo-version: 'latest'
-          # extended: true
+          path: 'build/'
 
-      - name: Build
-        run: hugo --minify
+  deploy:
+    needs: build_site
+    runs-on: ubuntu-latest
 
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+        id: deployment
+        uses: actions/deploy-pages@v1
