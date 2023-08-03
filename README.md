@@ -1,52 +1,38 @@
-# Landing page for the FORT project
+# create-svelte
 
-## Getting started
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
 
-You need to install Hugo.
+## Creating a project
 
-``` bash
-sudo snap install hugo
+If you're seeing this, you've probably already done this step. Congrats!
+
+```bash
+# create a new project in the current directory
+npm create svelte@latest
+
+# create a new project in my-app
+npm create svelte@latest my-app
 ```
 
-Then `hugo server` from the root will live display the website.
+## Developing
 
-### Adding wiki pages
+Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
 
-Simply add a page in `content/wiki/<section>` `<section>` could be omitted to go in the top section
+```bash
+npm run dev
 
-### Adding a wiki section
-
-Add a new index file in `content/wiki/<new-section>/_index.md` listing the section as sub-menu of wiki
-
-``` yaml
-#content of a wiki section index
----
-menu:
-  main:
-    name: "Menu Name"
-    parent: "Wiki"
----
+# or start the server and open the app in a new browser tab
+npm run dev -- --open
 ```
 
-### Adding a single top level page
+## Building
 
-Add a new file in `content` and add the following to the front matter
+To create a production version of your app:
 
-``` yaml
----
-title: "Potentially a very long title"
-menu:
-  main:
-    name: "Your menu title"
----
+```bash
+npm run build
 ```
 
+You can preview the production build with `npm run preview`.
 
-### Adding / using assets.
-
-Assets (images, css ) should be placed under `/static/` folder they will be accessible with from markdown using `/static/<path-to-assets/`
-
-I propose the following structure
-* `/images`: all images for the top section level
-* `/css`: all custom css for the top section level
-* `/wiki/<section>/images` : wiki images for the section of the wiki.
+> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
