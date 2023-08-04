@@ -11,7 +11,6 @@
 <svelte:head>{@html `<script>(${setInitialClassState.toString()})();</script>`}</svelte:head>
 <AppShell
 	regionPage="mx-auto p-6 md:p-10 md:max-w-[960px] xl:px-[200px] xl:max-w-none 2xl:px-10 2xl:max-w-[1200px]"
-	slotPageContent="prose dark:prose-invert"
 >
 	<svelte:fragment slot="header">
 		<AppBar>
